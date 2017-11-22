@@ -17,6 +17,7 @@ public class ColorGameOne {
     private HashMap<Integer, String> wordList = new HashMap<Integer, String>();
 
     private int[] colorArrayButton = new int[4];
+    private String[] colorArrayWord = new String[4];
     private int answerButton;
     private int answerColor;
     private int wrongAttempt = 0;
@@ -51,6 +52,9 @@ public class ColorGameOne {
     }
 
     //All GET
+    public String getWordList(int key){
+        return this.colorArrayWord[key];
+    }
     public int[] getColorArrayButton(){
         return colorArrayButton;
     }
@@ -135,6 +139,7 @@ public class ColorGameOne {
             //if not repeat add the colort
             if(set == 0){
                 this.colorArrayButton[flag] = this.colorList.get(color);
+                this.colorArrayWord[flag] = this.wordList.get(color);
                 //ystem.out.println("pickColorBreak" + this.colorList.get(color));
 
                 if(setText == flag){

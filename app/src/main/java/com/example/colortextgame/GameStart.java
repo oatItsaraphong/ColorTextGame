@@ -102,7 +102,8 @@ public class GameStart extends AppCompatActivity {
         for (int i = 0; i < 4 ; i++) {
             Button button = (Button) findViewById(name_but[i]);
 
-            button.setBackgroundColor(newGameSet.getColorArrayButton()[i]);
+            button.setText(newGameSet.getWordList(i));
+            //button.setBackgroundColor(newGameSet.getColorArrayButton()[i]);
             //i++;
         }
 
