@@ -2,8 +2,13 @@ package com.example.colortextgame;
 
 import android.graphics.Color;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
+import java.util.StringJoiner;
 
 /**
  * Created by CordexCoder on 11/22/2017.
@@ -26,6 +31,10 @@ public class ColorGameOne {
 
     private String wordPrint;
 
+    //for CSV
+    private int[] colorArrayIndex = new int[4];
+    private int wordPrintIndex;
+
     //Ctor
     public ColorGameOne(){
         SetAllColor();
@@ -33,11 +42,13 @@ public class ColorGameOne {
         pickAnswer();
     }
 
+    //Need to be remove later-------------------------
     public void GameOneStart(){
         SetAllColor();
         setFourColor();
         pickAnswer();
     }
+    //-------------------------------------------------
 
     //Check answer base on where are the ColorButton
     public boolean checkAnswer(int answerIn){
@@ -55,8 +66,8 @@ public class ColorGameOne {
     public String getWordList(int key){
         return this.colorArrayWord[key];
     }
-    public int[] getColorArrayButton(){
-        return colorArrayButton;
+    public int getColorArrayButton(int key){
+        return this.colorArrayButton[key];
     }
     public int getAnswerButton(){
         return answerButton;
@@ -64,19 +75,15 @@ public class ColorGameOne {
     public int getAnswerColor(){
         return answerColor;
     }
-
     public int getReactTime() {
         return reactTime;
     }
-
     public int getWaitTime() {
         return waitTime;
     }
-
     public String getWordPrint() {
         return wordPrint;
     }
-
     public int getWrongAttempt() {
         return wrongAttempt;
     }
@@ -86,7 +93,6 @@ public class ColorGameOne {
     public void setReactTime(int reactTime) {
         this.reactTime = reactTime;
     }
-
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
     }
@@ -120,7 +126,6 @@ public class ColorGameOne {
         //this.wordPrint = this.wordList.get(this.chooseAnswer());
     }
 
-
     private void setFourColor() {
         int flag = 0;
         int color;
@@ -140,10 +145,16 @@ public class ColorGameOne {
             if(set == 0){
                 this.colorArrayButton[flag] = this.colorList.get(color);
                 this.colorArrayWord[flag] = this.wordList.get(color);
+
+                //csv
+                this.colorArrayIndex[flag] = color;
                 //ystem.out.println("pickColorBreak" + this.colorList.get(color));
 
                 if(setText == flag){
                     this.wordPrint = this.wordList.get(color);
+
+                    //csv
+                    this.wordPrintIndex = color;
                 }
                 flag++;
             }
@@ -175,5 +186,26 @@ public class ColorGameOne {
         //Seed
         //Random r = new Random();
         return r.nextInt(max - min + 1) + min;
+    }
+
+    public String printCSV(Timestamp time){
+        List<String> mainString = new LinkedList<String>();
+        mainString.add(time.toString());
+
+        mainString.add(Integer.toString(this.colorArrayIndex[0]));
+        mainString.add(Integer.toString(this.colorArrayIndex[1]));
+        mainString.add(Integer.toString(this.colorArrayIndex[2]));
+        mainString.add(Integer.toString(this.colorArrayIndex[3]));
+
+        mainString.add(Integer.toString(this.wordPrintIndex));
+        mainString.add(Integer.toString(this.answerButton));
+
+        mainString.add(Integer.toString(this.wrongAttempt));
+        mainString.add(Integer.toString(this.waitTime));
+        mainString.add(Integer.toString(this.reactTime));
+
+        return "notfind";
+        //StringJoiner joiner =
+
     }
 }
