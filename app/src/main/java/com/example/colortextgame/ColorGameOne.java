@@ -45,8 +45,11 @@ public class ColorGameOne {
     //Need to be remove later-------------------------
     public void GameOneStart(){
         SetAllColor();
+        //System.out.println("before Set5");
         setFourColor();
+        //System.out.println("before Set6");
         pickAnswer();
+        //System.out.println("before Set7");
     }
     //-------------------------------------------------
 
