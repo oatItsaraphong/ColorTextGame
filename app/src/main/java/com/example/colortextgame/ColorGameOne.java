@@ -19,8 +19,8 @@ public class ColorGameOne {
     private Random r = new Random();
     private ShareClass share = new ShareClass();
 
-    private HashMap<Integer, Integer>  = new HashMap<Integer, Integer>();
-    private HashMap<Integer, String> wordList = new HashMap<Integer, String>();
+    //private HashMap<Integer, Integer> colorList = new HashMap<Integer, Integer>();
+    //private HashMap<Integer, String> wordList = new HashMap<Integer, String>();
 
     private int[] colorArrayButton = new int[4];
     private String[] colorArrayWord = new String[4];
@@ -39,14 +39,14 @@ public class ColorGameOne {
 
     //Ctor
     public ColorGameOne(){
-        SetAllColor();
+        //SetAllColor();
         setFourColor();
         pickAnswer();
     }
 
     //Need to be remove later-------------------------
     public void GameOneStart(){
-        SetAllColor();
+        //SetAllColor();
         //System.out.println("before Set5");
         setFourColor();
         //System.out.println("before Set6");
@@ -104,6 +104,7 @@ public class ColorGameOne {
 
 
     //PRIVATE
+    /**
     private void SetAllColor() {
         this.colorList.put(1, Color.RED);
         this.colorList.put(2, Color.BLUE);
@@ -120,11 +121,13 @@ public class ColorGameOne {
         this.wordList.put(6,"GRAY");
         //System.out.println("SetAllColor");
     }
+     */
 
     private void pickAnswer(){
         int k = this.chooseAnswer();
 
-        this.answerColor = this.colorList.get(this.colorArrayButton[k]);
+        this.answerColor = share.getColorList(this.colorArrayButton[k]);
+        //this.answerColor = this.colorList.get(this.colorArrayButton[k]);
         //this.answerColor = this.colorArrayButton[k];
         this.answerColorKey = this.colorArrayButton[k];
         this.answerButton = k;
@@ -154,7 +157,8 @@ public class ColorGameOne {
             if(set == 0){
                 //this.colorArrayButton[flag] = this.colorList.get(color);
                 this.colorArrayButton[flag] = color;
-                this.colorArrayWord[flag] = this.wordList.get(color);
+                //this.colorArrayWord[flag] = this.wordList.get(color);
+                this.colorArrayWord[flag] = share.getWordList(color);
 
 
                 //csv
@@ -162,8 +166,9 @@ public class ColorGameOne {
                 //ystem.out.println("pickColorBreak" + this.colorList.get(color));
 
                 if(setText == flag){
-                    this.wordPrint = this.wordList.get(color);
 
+                    //this.wordPrint = this.wordList.get(color);
+                    this.wordPrint = share.getWordList(color);
 
                     //csv
                     this.wordPrintIndex = color;
@@ -192,7 +197,8 @@ public class ColorGameOne {
     }
 
     private int randomColor(){
-        int max = colorList.size();
+        int max = share.getColorListSize();
+        //int max = colorList.size();
 
         int min = 1;
         //Seed
