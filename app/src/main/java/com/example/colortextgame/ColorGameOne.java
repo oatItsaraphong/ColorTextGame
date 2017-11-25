@@ -1,14 +1,14 @@
 package com.example.colortextgame;
 
 import android.graphics.Color;
+import android.text.TextUtils;
 
-import java.sql.Time;
-import java.sql.Timestamp;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.StringJoiner;
+
 
 /**
  * Created by CordexCoder on 11/22/2017.
@@ -17,17 +17,19 @@ import java.util.StringJoiner;
 public class ColorGameOne {
 
     private Random r = new Random();
+    private ShareClass share = new ShareClass();
 
-    private HashMap<Integer, Integer> colorList = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer>  = new HashMap<Integer, Integer>();
     private HashMap<Integer, String> wordList = new HashMap<Integer, String>();
 
     private int[] colorArrayButton = new int[4];
     private String[] colorArrayWord = new String[4];
     private int answerButton;
     private int answerColor;
+    private int answerColorKey;
     private int wrongAttempt = 0;
-    private int waitTime = 0;
-    private int reactTime = 0;
+    private long waitTime = 0;
+    private long reactTime = 0;
 
     private String wordPrint;
 
@@ -78,10 +80,10 @@ public class ColorGameOne {
     public int getAnswerColor(){
         return answerColor;
     }
-    public int getReactTime() {
+    public long getReactTime() {
         return reactTime;
     }
-    public int getWaitTime() {
+    public long getWaitTime() {
         return waitTime;
     }
     public String getWordPrint() {
@@ -93,10 +95,10 @@ public class ColorGameOne {
 
 
     //ALL SET
-    public void setReactTime(int reactTime) {
+    public void setReactTime(long reactTime) {
         this.reactTime = reactTime;
     }
-    public void setWaitTime(int waitTime) {
+    public void setWaitTime(long waitTime) {
         this.waitTime = waitTime;
     }
 
@@ -121,7 +123,10 @@ public class ColorGameOne {
 
     private void pickAnswer(){
         int k = this.chooseAnswer();
-        this.answerColor = this.colorArrayButton[k];
+
+        this.answerColor = this.colorList.get(this.colorArrayButton[k]);
+        //this.answerColor = this.colorArrayButton[k];
+        this.answerColorKey = this.colorArrayButton[k];
         this.answerButton = k;
 
         //random word out
@@ -139,15 +144,18 @@ public class ColorGameOne {
             int set = 0;
             //System.out.println("suze" + this.colorArrayButton.length);
             for(int i = 0; i < this.colorArrayButton.length ; i++){
-                if(this.colorArrayButton[i] == this.colorList.get(color)){
+                if(this.colorArrayButton[i] == color){
+                //if(this.colorArrayButton[i] == this.colorList.get(color)){
                     set++;
                 }
             }
 
             //if not repeat add the colort
             if(set == 0){
-                this.colorArrayButton[flag] = this.colorList.get(color);
+                //this.colorArrayButton[flag] = this.colorList.get(color);
+                this.colorArrayButton[flag] = color;
                 this.colorArrayWord[flag] = this.wordList.get(color);
+
 
                 //csv
                 this.colorArrayIndex[flag] = color;
@@ -155,6 +163,7 @@ public class ColorGameOne {
 
                 if(setText == flag){
                     this.wordPrint = this.wordList.get(color);
+
 
                     //csv
                     this.wordPrintIndex = color;
@@ -191,9 +200,9 @@ public class ColorGameOne {
         return r.nextInt(max - min + 1) + min;
     }
 
-    public String printCSV(Timestamp time){
+    public String printCSV(long time){
         List<String> mainString = new LinkedList<String>();
-        mainString.add(time.toString());
+        mainString.add(Long.toString(time));
 
         mainString.add(Integer.toString(this.colorArrayIndex[0]));
         mainString.add(Integer.toString(this.colorArrayIndex[1]));
@@ -201,14 +210,28 @@ public class ColorGameOne {
         mainString.add(Integer.toString(this.colorArrayIndex[3]));
 
         mainString.add(Integer.toString(this.wordPrintIndex));
+        mainString.add(Integer.toString(this.answerColorKey));
         mainString.add(Integer.toString(this.answerButton));
 
         mainString.add(Integer.toString(this.wrongAttempt));
-        mainString.add(Integer.toString(this.waitTime));
-        mainString.add(Integer.toString(this.reactTime));
+        mainString.add(Long.toString(this.waitTime));
+        mainString.add(Long.toString(this.reactTime));
 
-        return "notfind";
-        //StringJoiner joiner =
+        String out = TextUtils.join(",", mainString);
+        return out;
+
+        /**
+         CSV out format
+         Timestamp in long
+         4** color keys appear on the 4 button
+         Color keys(name) quiz text written out
+         Color keys(int) quiz text of the color (answer color key)
+         Button number index 0-3
+         Wrong attempt
+         Wait time
+         React time
+         */
+
 
     }
 }
