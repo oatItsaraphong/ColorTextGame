@@ -18,11 +18,11 @@ import java.util.Random;
 
 public class GameStart extends AppCompatActivity {
 
-    private static int NUM_TURN = 10;
+    private ShareClass share = new ShareClass();
 
-
+    private int NUM_TURN;
     public Random r = new Random();
-    ColorGameOne[] newGameSet = new ColorGameOne[NUM_TURN];
+    ColorGameOne[] newGameSet = new ColorGameOne[share.getNUM_TURN()];
 
     int numWrong = 0;
     int gameIndex = 0;
@@ -38,7 +38,7 @@ public class GameStart extends AppCompatActivity {
 
         setContentView(R.layout.activity_game_start);
 
-
+        NUM_TURN = share.getNUM_TURN();
         //initialize
         for(int i = 0; i < NUM_TURN; i++){
             newGameSet[i] = new ColorGameOne();

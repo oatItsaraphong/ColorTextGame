@@ -10,7 +10,7 @@ import java.util.Set;
  */
 
 public class ShareClass {
-    private int NUM_TURN = 10;
+    private int NUM_TURN = 2;
 
     private HashMap<Integer, Integer> colorList = new HashMap<Integer, Integer>();
     private HashMap<Integer, String> wordList = new HashMap<Integer, String>();

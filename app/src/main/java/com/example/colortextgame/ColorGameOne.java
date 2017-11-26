@@ -14,7 +14,7 @@ import java.util.Random;
  * Created by CordexCoder on 11/22/2017.
  */
 
-public class ColorGameOne {
+public class ColorGameOne{
 
     private Random r = new Random();
     private ShareClass share = new ShareClass();
